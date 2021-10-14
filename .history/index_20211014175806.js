@@ -1,4 +1,3 @@
-const e = require("express");
 const express = require("express");
 var app = express();
 app.use(function(req,res,mynext){
@@ -16,36 +15,21 @@ app.post("/login",(request,response)=>{
     // console.log("")
     let user = validateUserReqest({...request.body});
     if(!user){
-        return response.send({error:"פרטי המתשמ לא עברו ולדיציה"});
+        response.send({error:})
     }
     // console.log("validated request.body:" , request.body);
-    let found_user = users.find((u)=>{
-          return u.username==user.username;
+    let found_user = users.find((user)=>{
+          return user.username==request.body?.username;
         });
+    if(!found_user){
 
-    if(!found_user){//המשתמש לא נמצא
-        let last_inserted_user =  users[users.length-1];
-        user.id  = last_inserted_user.id+1;
-        console.log("suer is bout to get pushed",user)
-        users.push({...user});
-        delete user.password;
-        response.send({user:user});
-    }else {//המשתמש נמצא
-        
-        if(found_user.password==user.password){
-            delete found_user.password;
-            response.send({user:found_user});
-        }else{
-            response.send({error:"הסיסמה שהקשת שגויה"});
-        }
+        users.push(user);
+    }else{
+        //המשתמש נמצא
         
     }
 })
-app.get("/users",(req,res)=>{
-    res.send(users);
-})
 const validateUserReqest = (user)=>{
-    user.username = user.username.toLowerCase();
     if(!user.username){
         return null;
     }

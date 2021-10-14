@@ -1,4 +1,3 @@
-const e = require("express");
 const express = require("express");
 var app = express();
 app.use(function(req,res,mynext){
@@ -23,26 +22,13 @@ app.post("/login",(request,response)=>{
           return u.username==user.username;
         });
 
-    if(!found_user){//המשתמש לא נמצא
-        let last_inserted_user =  users[users.length-1];
-        user.id  = last_inserted_user.id+1;
-        console.log("suer is bout to get pushed",user)
-        users.push({...user});
-        delete user.password;
-        response.send({user:user});
-    }else {//המשתמש נמצא
-        
-        if(found_user.password==user.password){
-            delete found_user.password;
-            response.send({user:found_user});
-        }else{
-            response.send({error:"הסיסמה שהקשת שגויה"});
-        }
+    if(!found_user){
+        users.push(user);
+    }else{
+            
+        //המשתמש נמצא
         
     }
-})
-app.get("/users",(req,res)=>{
-    res.send(users);
 })
 const validateUserReqest = (user)=>{
     user.username = user.username.toLowerCase();

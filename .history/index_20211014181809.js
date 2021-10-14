@@ -24,11 +24,9 @@ app.post("/login",(request,response)=>{
         });
 
     if(!found_user){//המשתמש לא נמצא
-        let last_inserted_user =  users[users.length-1];
-        user.id  = last_inserted_user.id+1;
-        console.log("suer is bout to get pushed",user)
-        users.push({...user});
-        delete user.password;
+        users[user]
+        users.push(user);
+        delete found_user.password;
         response.send({user:user});
     }else {//המשתמש נמצא
         

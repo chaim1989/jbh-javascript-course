@@ -26,12 +26,11 @@ app.post("/login",(request,response)=>{
     if(!found_user){//המשתמש לא נמצא
         let last_inserted_user =  users[users.length-1];
         user.id  = last_inserted_user.id+1;
-        console.log("suer is bout to get pushed",user)
-        users.push({...user});
-        delete user.password;
+        users.push(user);
+        delete found_user.password;
         response.send({user:user});
     }else {//המשתמש נמצא
-        
+        console.log(`found user password ${found_user.password} sent user passsword`);
         if(found_user.password==user.password){
             delete found_user.password;
             response.send({user:found_user});
