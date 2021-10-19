@@ -1,6 +1,6 @@
 const express = require("express");
 
-const uuidv4 = require("uuid").v4;
+iconst uuidv4 } require("express").v4;
 
 var app = express();
 app.use(function (req, res, mynext) {
@@ -42,8 +42,7 @@ app.post("/login", (request, response) => {
             sessions.push({ 
                 user_id: user_to_send_to_client.id, 
                 session_id: uuidv4(), 
-                expiration_time: new Date(new Date().getTime() + 5*60*1000)
-            })
+                expiration_time: new Date(Date.getTime() + 5*60*1000)})
             response.send({ user: user_to_send_to_client });
         } else {
             response.send({ error: "הסיסמה שהקשת שגויה" });
@@ -54,9 +53,6 @@ app.post("/login", (request, response) => {
 app.get("/users", (req, res) => {
     res.send(users);
 
-});
-app.get("/sessions", (req, res) => {
-    res.send(sessions);
 });
 
 const validateUserReqest = (user) => {

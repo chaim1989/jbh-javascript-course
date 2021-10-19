@@ -42,8 +42,7 @@ app.post("/login", (request, response) => {
             sessions.push({ 
                 user_id: user_to_send_to_client.id, 
                 session_id: uuidv4(), 
-                expiration_time: new Date(new Date().getTime() + 5*60*1000)
-            })
+                expiration_time: new Date(Date.getTime() + 5*60*1000)})
             response.send({ user: user_to_send_to_client });
         } else {
             response.send({ error: "הסיסמה שהקשת שגויה" });
@@ -58,7 +57,6 @@ app.get("/users", (req, res) => {
 app.get("/sessions", (req, res) => {
     res.send(sessions);
 });
-
 const validateUserReqest = (user) => {
     user.username = user.username.toLowerCase();
     if (!user.username) {
