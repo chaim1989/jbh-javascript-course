@@ -27,15 +27,14 @@ app.post("/login",(request,response)=>{
         let last_inserted_user =  users[users.length-1];
         user.id  = last_inserted_user.id+1;
         console.log("user is about to get pushed",user)
-        users.push({...user});
+        users.push(user});
         delete user.password;
         response.send({user:user});
     }else {//המשתמש נמצא
         
         if(found_user.password==user.password){
-            let user_to_send_to_client = {...found_user};
-            delete user_to_send_to_client.password;
-            response.send({user:user_to_send_to_client});
+            delete found_user.password;
+            response.send({user:found_user});
         }else{
             response.send({error:"הסיסמה שהקשת שגויה"});
         }

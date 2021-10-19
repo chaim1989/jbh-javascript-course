@@ -14,7 +14,6 @@ app.post("/login",(request,response)=>{
     // original_user.im_original_user = true;
     // console.log("")
     let user = validateUserReqest({...request.body});
-    
     if(!user){
         return response.send({error:"פרטי המשתמש לא עברו ולדיציה"});
     }
@@ -33,9 +32,8 @@ app.post("/login",(request,response)=>{
     }else {//המשתמש נמצא
         
         if(found_user.password==user.password){
-            let user_to_send_to_client = {...found_user};
-            delete user_to_send_to_client.password;
-            response.send({user:user_to_send_to_client});
+            delete found_user.password;
+            response.send({user:found_user});
         }else{
             response.send({error:"הסיסמה שהקשת שגויה"});
         }

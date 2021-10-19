@@ -21,7 +21,7 @@ document.addEventListener('click', function (event) {
                     alert(responsebody.error);
                 }else if(responsebody.user){
                     alert(`משתמש מספר ${responsebody.user.id} התחבר בהצלחה`)
-                    window.location = "/userArea.html?user_id=" +responsebody.user.id ;
+                    window.location = "/userArea";
                 }else{
                     
                 }

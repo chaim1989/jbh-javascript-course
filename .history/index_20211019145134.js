@@ -35,7 +35,7 @@ app.post("/login",(request,response)=>{
         if(found_user.password==user.password){
             let user_to_send_to_client = {...found_user};
             delete user_to_send_to_client.password;
-            response.send({user:user_to_send_to_client});
+            response.send({user:found_user});
         }else{
             response.send({error:"הסיסמה שהקשת שגויה"});
         }

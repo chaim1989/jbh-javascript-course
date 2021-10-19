@@ -19,7 +19,7 @@ app.post("/login",(request,response)=>{
         return response.send({error:"פרטי המשתמש לא עברו ולדיציה"});
     }
     // console.log("validated request.body:" , request.body);
-    let found_user = users.find((u)=>{
+    let found_user = users.find((userina)=>{
           return u.username==user.username;
         });
 
@@ -33,9 +33,8 @@ app.post("/login",(request,response)=>{
     }else {//המשתמש נמצא
         
         if(found_user.password==user.password){
-            let user_to_send_to_client = {...found_user};
-            delete user_to_send_to_client.password;
-            response.send({user:user_to_send_to_client});
+            delete found_user.password;
+            response.send({user:found_user});
         }else{
             response.send({error:"הסיסמה שהקשת שגויה"});
         }

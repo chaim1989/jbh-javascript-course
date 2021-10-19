@@ -20,8 +20,7 @@ document.addEventListener('click', function (event) {
                 if(responsebody.error){
                     alert(responsebody.error);
                 }else if(responsebody.user){
-                    alert(`משתמש מספר ${responsebody.user.id} התחבר בהצלחה`)
-                    window.location = "/userArea.html?user_id=" +responsebody.user.id ;
+                    alert(`משתמש מספר `)
                 }else{
                     
                 }

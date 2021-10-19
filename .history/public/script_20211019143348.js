@@ -17,15 +17,7 @@ document.addEventListener('click', function (event) {
             
             response.json().then((responsebody) => {
                 console.log("responsebody", responsebody)
-                if(responsebody.error){
-                    alert(responsebody.error);
-                }else if(responsebody.user){
-                    alert(`משתמש מספר ${responsebody.user.id} התחבר בהצלחה`)
-                    window.location = "/userArea.html?user_id=" +responsebody.user.id ;
-                }else{
-                    
-                }
-
+                if(responsebody)
             });
         })
         console.log("user", user);
