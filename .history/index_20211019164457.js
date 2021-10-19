@@ -48,33 +48,28 @@ app.post("/login", (request, response) => {
                 expiration_time: new Date(new Date().getTime() + 5*60*1000)
             };
             sessions.push(session)
-            response.cookie('session_id', session.session_id).send({ user: user_to_send_to_client});
+            response.send({ user: user_to_send_to_client,session_id: session.session_id});
         } else {
             response.send({ error: "הסיסמה שהקשת שגויה" });
         }
 
     }
 });
-app.get("/userDetails",checkSession,(req,res)=>{
-
-   
-    res.send(req.user);
-    
-})
-function checkSession(req,res,next){
+app.get("/userDetails",(req,res)=>{
+    //console.log("user deatils req.headers.cookie",);
+    // let user = ;
     let found_session = sessions.find((s)=>{
         return s.session_id == req.cookies?.session_id && s.expiration_time > new Date();
     });
     if(found_session){
         let found_user = users.find((u)=>{
-            return u.id == found_session.user_id;
+            return u.id==found_session.user_id;
         })
         if(found_user){
-            found_session.expiration_time =new Date(new Date().getTime() + 5*60*1000);
+            found_session.expiration_time
             let user_to_send = {...found_user};
             delete user_to_send.password;
-            req.user = user_to_send;
-            next();
+            res.send(user_to_send);
             
         }else{
             res.sendStatus(401);
@@ -82,7 +77,8 @@ function checkSession(req,res,next){
     }else{
         res.sendStatus(401);
     }
-}
+    
+})
 app.get("/users", (req, res) => {
     res.send(users);
 

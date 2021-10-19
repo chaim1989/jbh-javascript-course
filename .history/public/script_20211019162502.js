@@ -21,9 +21,10 @@ document.addEventListener('click', function (event) {
                     alert(responsebody.error);
                 }else if(responsebody.user){
                     alert(`משתמש מספר ${responsebody.user.id} התחבר בהצלחה`);
-                    // if(responsebody.session_id){
-                    //     document.cookie = "session_id=" + responsebody.session_id ;
-                    // }
+                    if(responsebody.session_id){
+                        
+                        document.cookie = "session_id=" + responsebody.session_id ;;
+                    }
                     window.location = "/userArea.html" ;
                  
                 }else{

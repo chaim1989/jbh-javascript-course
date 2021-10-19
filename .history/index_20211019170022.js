@@ -55,13 +55,9 @@ app.post("/login", (request, response) => {
 
     }
 });
-app.get("/userDetails",checkSession,(req,res)=>{
-
-   
-    res.send(req.user);
-    
-})
-function checkSession(req,res,next){
+app.get("/userDetails",(req,res)=>{
+    //console.log("user deatils req.headers.cookie",);
+    // let user = ;
     let found_session = sessions.find((s)=>{
         return s.session_id == req.cookies?.session_id && s.expiration_time > new Date();
     });
@@ -73,8 +69,7 @@ function checkSession(req,res,next){
             found_session.expiration_time =new Date(new Date().getTime() + 5*60*1000);
             let user_to_send = {...found_user};
             delete user_to_send.password;
-            req.user = user_to_send;
-            next();
+            res.send(user_to_send);
             
         }else{
             res.sendStatus(401);
@@ -82,7 +77,8 @@ function checkSession(req,res,next){
     }else{
         res.sendStatus(401);
     }
-}
+    
+})
 app.get("/users", (req, res) => {
     res.send(users);
 

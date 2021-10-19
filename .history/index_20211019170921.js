@@ -55,10 +55,10 @@ app.post("/login", (request, response) => {
 
     }
 });
-app.get("/userDetails",checkSession,(req,res)=>{
+app.get("/userDetails",(req,res)=>{
 
    
-    res.send(req.user);
+    res.send(user_to_send);
     
 })
 function checkSession(req,res,next){

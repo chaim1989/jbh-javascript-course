@@ -55,10 +55,10 @@ app.post("/login", (request, response) => {
 
     }
 });
-app.get("/userDetails",checkSession,(req,res)=>{
+app.get("/userDetails",(req,res)=>{
 
    
-    res.send(req.user);
+    res.send(user_to_send);
     
 })
 function checkSession(req,res,next){
@@ -73,7 +73,6 @@ function checkSession(req,res,next){
             found_session.expiration_time =new Date(new Date().getTime() + 5*60*1000);
             let user_to_send = {...found_user};
             delete user_to_send.password;
-            req.user = user_to_send;
             next();
             
         }else{

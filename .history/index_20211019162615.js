@@ -1,7 +1,6 @@
 const express = require("express");
 
 const uuidv4 = require("uuid").v4;
-var cookieParser = require('cookie-parser')
 
 var app = express();
 app.use(function (req, res, mynext) {
@@ -10,8 +9,6 @@ app.use(function (req, res, mynext) {
 });
 
 app.use(express.json());
-app.use(cookieParser());
-
 app.use(express.static(__dirname + "/public"));
 let users = [{ id: 1, username: "chaim", password: "22468" }, { id: 2, username: "moshe", password: "211356" }];
 let sessions = [];
@@ -48,41 +45,14 @@ app.post("/login", (request, response) => {
                 expiration_time: new Date(new Date().getTime() + 5*60*1000)
             };
             sessions.push(session)
-            response.cookie('session_id', session.session_id).send({ user: user_to_send_to_client});
+            response.send({ user: user_to_send_to_client,session_id: session.session_id});
         } else {
             response.send({ error: "הסיסמה שהקשת שגויה" });
         }
 
     }
 });
-app.get("/userDetails",checkSession,(req,res)=>{
-
-   
-    res.send(req.user);
-    
-})
-function checkSession(req,res,next){
-    let found_session = sessions.find((s)=>{
-        return s.session_id == req.cookies?.session_id && s.expiration_time > new Date();
-    });
-    if(found_session){
-        let found_user = users.find((u)=>{
-            return u.id == found_session.user_id;
-        })
-        if(found_user){
-            found_session.expiration_time =new Date(new Date().getTime() + 5*60*1000);
-            let user_to_send = {...found_user};
-            delete user_to_send.password;
-            req.user = user_to_send;
-            next();
-            
-        }else{
-            res.sendStatus(401);
-        }
-    }else{
-        res.sendStatus(401);
-    }
-}
+app.get
 app.get("/users", (req, res) => {
     res.send(users);
 
