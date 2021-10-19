@@ -69,8 +69,8 @@
         
     });
     $("#logout").click(()=>{
-        $.post("/logout",(data)=>{
-                window.location= "/";
+        $.post("/logout",{},(data)=>{
+                windows.location= "/";
         })
     });
 </script>

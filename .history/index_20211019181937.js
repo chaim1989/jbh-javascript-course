@@ -57,14 +57,6 @@ app.post("/login", (request, response) => {
 });
 app.post("/logout",(req,res)=>{
 
-    let session_index = sessions.findIndex((s)=>{
-        return s.session_id == req.session?.session_id;
-    });
-    if(session_index){
-        sessions.splice(session_index,1);
-    }
-    res.end();
-
 })
 app.get("/userDetails",checkSession,(req,res)=>{
 
@@ -85,7 +77,7 @@ function checkSession(req,res,next){
             let user_to_send = {...found_user};
             delete user_to_send.password;
             req.user = user_to_send;
-            req.session  = found_session;
+            req.session  =
             next();
             
         }else{

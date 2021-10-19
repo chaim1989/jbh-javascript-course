@@ -56,14 +56,10 @@ app.post("/login", (request, response) => {
     }
 });
 app.post("/logout",(req,res)=>{
-
-    let session_index = sessions.findIndex((s)=>{
-        return s.session_id == req.session?.session_id;
-    });
-    if(session_index){
-        sessions.splice(session_index,1);
-    }
-    res.end();
+    sessions.findIndex((x)=>{
+        x.session_id ==// req.session.session_id
+    })
+        
 
 })
 app.get("/userDetails",checkSession,(req,res)=>{

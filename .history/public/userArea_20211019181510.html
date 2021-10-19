@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-danger"  id="logout">
+                        <a class="nav-link active" tabindex="-1" id="logout">
 התנתק
                         </a>
                     </li>
@@ -67,11 +67,6 @@
         
         console.log(data);
         
-    });
-    $("#logout").click(()=>{
-        $.post("/logout",(data)=>{
-                window.location= "/";
-        })
     });
 </script>
 
