@@ -18,18 +18,17 @@ connection.on("error", (event) => {
 })
 connection.on("connect", () => {
     console.log("connection success");
-    
+})
 
 
 io.on("connection",(socket)=>{
     // console.log("socket connected",socket);
     socket.emit("welcome",{sender:"system"});
-
     socket.on("msg",(data)=>{
-        socket.broadcast.emit("receivemsg",data);
+        
+        socket.broadcast.emit("msg",data);
     })
-});
-
+})
 // mongoose.connect('mongodb://127.0.0.1:27017/mycalssdb');
 // const db_connection = mongoose.connection;
 // db_connection.on("error", console.error.bind(console, "connection error: "));
@@ -46,11 +45,6 @@ app.use(cookieParser());
 
 app.use(express.static(__dirname + "/public"));
 let sessions = [];
-app.delete("/deleteuser",(req,res)=>{
-    connection.query(`CALL delete_user(?)`,[req.body.user_id],(err,result)=>{
-
-    })
-})
 app.post("/signup",(req,res)=>{
     console.log(req.body);
     let user = validateUserReqest({ ...req.body });

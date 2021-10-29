@@ -26,7 +26,7 @@ io.on("connection",(socket)=>{
     socket.emit("welcome",{sender:"system"});
 
     socket.on("msg",(data)=>{
-        socket.broadcast.emit("receivemsg",data);
+        socket.broadcast.emit("msg",data);
     })
 });
 
@@ -46,11 +46,7 @@ app.use(cookieParser());
 
 app.use(express.static(__dirname + "/public"));
 let sessions = [];
-app.delete("/deleteuser",(req,res)=>{
-    connection.query(`CALL delete_user(?)`,[req.body.user_id],(err,result)=>{
-
-    })
-})
+app.delete("/")
 app.post("/signup",(req,res)=>{
     console.log(req.body);
     let user = validateUserReqest({ ...req.body });

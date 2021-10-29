@@ -26,7 +26,7 @@ io.on("connection",(socket)=>{
     socket.emit("welcome",{sender:"system"});
 
     socket.on("msg",(data)=>{
-        socket.broadcast.emit("receivemsg",data);
+        socket.broadcast.emit("msg",data);
     })
 });
 
