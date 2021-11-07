@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+                <h3 class="text-center text-info">כניסה למערכת</h3>
+                <div class="form-group">
+                    <label for="username" class="text-info">שם משתמש:</label><br>
+                    <input type="text" formControlName="username" required name="username" id="username" class="form-control">
+                    <small *ngIf="loginForm.controls.username.errors?.required">שדה זה הינו שדה חובה</small>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text-info">סיסמה:</label><br>
+                    <input type="text"  formControlName="password" required name="password" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="remember-me" class="text-info"><span>זכור אותי</span> <span><input id="remember-me"
+                                name="remember-me" type="checkbox"></span></label><br>
+                    <input type="submit" name="submit" class="btn btn-info btn-md" value="כניסה">
+                </div>
+                <div id="register-link" class="text-right">
+                    <a routerLink="register" class="text-info">הרשמה</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<h1>שלום עולם </h1>
+<h2>{{username}}</h2>
+<button (click)="username='שלמה לוי'" [style.color]="username.length>10?'red':'green'">click on me </button>
+<input 
+[(ngModel)]="temp_username" (blur)="username=temp_username">
+<img [hidden]="username=='בנימין דויטש'" src="https://docs.microsoft.com/en-us/windows-server/storage/dfs-namespaces/media/dfs-overview.png">
+
+
+<h3>אורך מערך המשתמשים הוא {{users.length}}</h3>
+
+<select>
+  <option *ngFor="let user of users">{{user}}</option>
+</select>
