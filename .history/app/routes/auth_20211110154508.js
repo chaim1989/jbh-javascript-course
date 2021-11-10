@@ -1,0 +1,21 @@
+const controller = require("../controllers/auth");
+const router = require("express").Router();
+const mypassport = require("../modules/mypassport");
+
+router.get("/",(req,res)=>{
+    res.send("welcome to auth route");
+})
+
+router.post("/login",mypassport.authenticate('local'),(req,res)=>{
+   
+        res.send({user:{id:req.user.id}});
+  
+})
+router.post("/signup",(req,res)=>{
+    controller.signup(req,res);
+})
+router.get("/logout",(req,res)=>{
+    req.logout();
+    res.redirect("/login");
+})
+module.exports = router;
