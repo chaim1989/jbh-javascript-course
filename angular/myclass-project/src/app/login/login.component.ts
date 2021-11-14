@@ -33,8 +33,9 @@ export class LoginComponent implements OnInit {
       console.log(this.loginForm.value)
       this.http.post( environment.apiUrl + 'auth/login', this.loginForm.value)
         .subscribe({
-          next: (data) => {
+          next: (data:any) => {
             console.log(data);
+            localStorage.setItem("user_id",data.user.id);
             this.router.navigate(["/home"]);
           },
           error: (err:HttpErrorResponse) => {

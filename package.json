@@ -15,6 +15,8 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-http-proxy": "^1.6.3",
+    "express-proxy": "0.0.2",
     "express-session": "^1.17.2",
     "g": "^2.0.1",
     "mongoose": "^6.0.11",

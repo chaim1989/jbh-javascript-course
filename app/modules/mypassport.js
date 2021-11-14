@@ -5,6 +5,7 @@ const db = require("./db");
 const bcrypt = require("bcrypt");
 
 passport.serializeUser(function (user, done) {
+    console.log("serializing user",user)
     done(null, user.id);
 });
 

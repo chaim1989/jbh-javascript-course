@@ -1,1 +1,43 @@
-<p>msgs works!</p>
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-4 col-lg-3">
+            <!-- <a href="#" class="btn btn-danger btn-sm btn-block" role="button">הודעה חדשה</a>
+            <hr /> -->
+            <ul class="list-group p-0">
+                <li class="list-group-item" [ngClass]="current_tab=='inbox'?'active':''" (click)="current_tab='inbox'">
+                    <a>
+                        דואר נכנס
+                        <span class="label label-warning float-start">{{incoming_msgs.length}}</span>
+                    </a>
+                </li>
+                <!-- <li class="list-group-item"><a href="http://www.jquery2dotnet.com">מסומן בכוכב</a></li> -->
+                <!-- <li class="list-group-item"><a href="http://www.jquery2dotnet.com">חשוב</a></li> -->
+                <li class="list-group-item" [ngClass]="current_tab=='sent'?'active':''" (click)="current_tab='sent'">
+                    <a>נשלח
+                        <span class="label label-warning float-start">{{outgoing_msgs.length}}</span>
+                    </a>
+                </li>
+                <!-- <li class="list-group-item"><a href="http://www.jquery2dotnet.com">
+                    טיוטות
+                    <span class="badge">3</span></a>
+                </li> -->
+            </ul>
+        </div>
+   
+        <div class="col-8 col-lg-9">
+            <ul class="list-group p-0">
+                <li class="list-group-item list-group-item-action" *ngFor="let msg of incoming_msgs">
+                    <input type="checkbox" class='float-end mx-2'>
+                    <i class="float-end fa-star mx-2" [ngClass]="msg.favorited?'fas':'far'" (click)="msg.favorited = !msg.favorited"></i>
+                    <div class="h5 float-end">
+                    {{msg.sender_fullname}} 
+                    </div>
+                    <div class="h6 float-end mx-2">{{getSubjectFromMsgContent(msg)}}</div>
+                    <div class="msg_content float-end mx-2">{{msg.content | slice:0:50 }}</div>
+                    <span class="float-start">{{msg.created_at | amTimeAgo }}</span>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+</div>

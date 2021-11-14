@@ -9,25 +9,28 @@ const path  = require("path")
 const {loggedIn} = require("./modules/utils");
 const redis = require('redis')
 const session = require('express-session');
+const proxy = require('express-http-proxy');
 const cors = require("cors");
 app.use(function (req, res, mynext) {
     console.log("req url", req.url);
     mynext();
 });
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(__dirname + "/public"));
+// app.use(express.static(__dirname + "/public"));
 
-// let RedisStore = require('connect-redis')(session)
-// let redisClient = redis.createClient()
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient()
 
 app.use(session(
     {
-        // store: new RedisStore({ client: redisClient }),
+        store: new RedisStore({ client: redisClient }),
         name: "mycalss_session_id",
         secret: 'jkjfoasdkjnolifn32984y9812u5jil32njr!!@#13mnkjxchs',
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: {SameSite: 'none'}
     }
 ));
 
@@ -36,9 +39,9 @@ app.use(mypassport.session());
 app.use(cors());
 app.use("/auth", authRouter);
 app.use("/msgs",loggedIn,  msgsRouter);
-app.get("/login",(req,res)=>{
-    res.sendFile(path.join(__dirname,"public","login.html"));
-})
+// app.get("/login",(req,res)=>{
+//     res.sendFile(path.join(__dirname,"public","index.html"));
+// })
 app.get("/getsession",(req,res)=>{
     res.send(req.session);
 })
@@ -46,7 +49,9 @@ app.get("/userDetails",loggedIn, (req, res) => {
     console.log(req.user);
     res.send(req.user);
 })
-
+// app.get(["/home","/home/*"],(req,res)=>{
+//     res.sendFile(path.join(__dirname,"public","index.html"));
+// })
 
 // function checkSession(req, res, next) {
 //     let found_session = sessions.find((s) => {
@@ -121,4 +126,5 @@ app.get("/userDetails",loggedIn, (req, res) => {
 
 
 // console.log(__dirname);
+app.use(["/","/*"],proxy("http://localhost:4200/"))
 module.exports = app;
