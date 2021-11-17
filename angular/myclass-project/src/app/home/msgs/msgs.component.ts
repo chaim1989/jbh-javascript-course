@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { ApiService } from 'src/app/services/api.service';
+
 
 @Component({
   selector: 'app-msgs',
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MsgsComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private apiService:ApiService) { }
   msgs:any=[];
   current_user_id:any;
   current_tab:string ="inbox";
@@ -19,7 +20,7 @@ export class MsgsComponent implements OnInit {
 
   }
   fetchmsgs() {
-    this.httpClient.get(environment.apiUrl + "msgs").subscribe({
+    this.apiService._get("msgs").subscribe({
       next: (data:any) => { 
         this.msgs = data;
         

@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {  HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private http: HttpClient,private router:Router) { }
+  constructor(private apiService: ApiService,private router:Router) { }
   showErrors: boolean = false;
 
   loginForm = new FormGroup(
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       console.log(this.loginForm.value)
-      this.http.post( environment.apiUrl + 'auth/login', this.loginForm.value,{withCredentials:true})
+      this.apiService._post('auth/login', this.loginForm.value)
         .subscribe({
           next: (data:any) => {
             console.log(data);
