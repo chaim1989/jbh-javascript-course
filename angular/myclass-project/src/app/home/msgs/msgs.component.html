@@ -23,21 +23,24 @@
                 </li> -->
             </ul>
         </div>
-   
+
         <div class="col-8 col-lg-9">
             <ul class="list-group p-0">
                 <li class="list-group-item list-group-item-action" *ngFor="let msg of incoming_msgs">
                     <input type="checkbox" class='float-end mx-2'>
-                    <i class="float-end fa-star mx-2" [ngClass]="msg.favorited?'fas':'far'" (click)="msg.favorited = !msg.favorited"></i>
+                    <i class="float-end fa-star mx-2" [ngClass]="msg.favorited?'fas':'far'"
+                        (click)="msg.favorited = !msg.favorited"></i>
                     <div class="h5 float-end">
-                    {{msg.sender_fullname}} 
+                        {{msg.sender_fullname}}
                     </div>
                     <div class="h6 float-end mx-2">{{getSubjectFromMsgContent(msg)}}</div>
-                    <div class="msg_content float-end mx-2">{{msg.content | slice:0:50 }}</div>
+      
+                        <div class="msg_content float-end mx-2">{{msg.content | slice:0:50 }} </div>
+            
                     <span class="float-start">{{msg.created_at | amTimeAgo }}</span>
                 </li>
             </ul>
         </div>
-        
+
     </div>
 </div>

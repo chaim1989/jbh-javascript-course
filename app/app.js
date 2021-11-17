@@ -30,13 +30,16 @@ app.use(session(
         secret: 'jkjfoasdkjnolifn32984y9812u5jil32njr!!@#13mnkjxchs',
         resave: true,
         saveUninitialized: true,
-        cookie: {SameSite: 'none'}
+        cookie: {httpOnly:false,secure:false}
     }
 ));
 
 app.use(mypassport.initialize());
 app.use(mypassport.session());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials:true
+}));
 app.use("/auth", authRouter);
 app.use("/msgs",loggedIn,  msgsRouter);
 // app.get("/login",(req,res)=>{

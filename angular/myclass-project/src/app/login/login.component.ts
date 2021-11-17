@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       console.log(this.loginForm.value)
-      this.http.post( environment.apiUrl + 'auth/login', this.loginForm.value)
+      this.http.post( environment.apiUrl + 'auth/login', this.loginForm.value,{withCredentials:true})
         .subscribe({
           next: (data:any) => {
             console.log(data);
