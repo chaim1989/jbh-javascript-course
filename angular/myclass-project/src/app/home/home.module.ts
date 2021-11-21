@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { MainHomeComponent } from './main-home/main-home.component';
@@ -9,6 +10,9 @@ import { ClassStudentComponent } from './class-student/class-student.component';
 import { ClassTeacherComponent } from './class-teacher/class-teacher.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'ngx-moment';
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import { ComposeMsgComponent } from './msgs/compose-msg/compose-msg.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,13 +21,17 @@ import { MomentModule } from 'ngx-moment';
     HomeComponent,
     MsgsComponent,
     ClassStudentComponent,
-    ClassTeacherComponent
+    ClassTeacherComponent,
+    ComposeMsgComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     HttpClientModule,
-    MomentModule
+    MomentModule,
+    NgbModalModule,
+    CKEditorModule,
+    FormsModule
   ],
   bootstrap:[HomeComponent]
 })

@@ -1,4 +1,5 @@
 const controller = {};
+
 const db = require("../modules/db.js")
 controller.getMsgsForUser = (user_id) => {
     return new Promise((resolve, reject) => {
@@ -26,6 +27,18 @@ controller.getMsgsForUser = (user_id) => {
             resolve(msgs);
 
 
+        })
+    })
+}
+controller.createMsg = (msg)=>{
+    console.log("controller msgs create msg")
+    return new Promise((resolve, reject) => {
+        db.query("insert into messages set ?",[msg],(err)=>{
+            if(err){
+                console.log(err);
+                return reject();
+            }
+            resolve();
         })
     })
 }

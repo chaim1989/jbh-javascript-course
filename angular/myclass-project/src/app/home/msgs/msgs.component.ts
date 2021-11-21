@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
+import { ComposeMsgComponent } from './compose-msg/compose-msg.component';
 
 
 @Component({
@@ -10,7 +12,10 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class MsgsComponent implements OnInit {
 
-  constructor(private apiService:ApiService) { }
+  constructor(
+    private apiService:ApiService,
+    private modalService: NgbModal
+    ) { }
   msgs:any=[];
   current_user_id:any;
   current_tab:string ="inbox";
@@ -29,6 +34,7 @@ export class MsgsComponent implements OnInit {
     })
   }
   
+  
   get incoming_msgs(){
     return this.msgs.filter((x:any)=>{
         return !x.to_user_id || x.to_user_id ==this.current_user_id;
@@ -45,5 +51,15 @@ export class MsgsComponent implements OnInit {
       return msg.subject;
     }
     return msg.content.split(' ').slice(0,3).join(" ");
+  }
+  copmoseMsg(){
+    this.modalService.open(ComposeMsgComponent,{backdrop: 'static',size: 'lg', keyboard: false, centered: true})
+    .result.then(
+      (result) => {
+        if(result){
+          this.fetchmsgs();
+        }
+
+    })
   }
 }

@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const app = express();
 const authRouter = require("./routes/auth.js");
 const msgsRouter = require("./routes/msgs.js");
+const usersRouter = require("./routes/users.js");
 const db = require("./modules/db.js");
 const mypassport = require("./modules/mypassport.js");
 const path  = require("path")
@@ -42,6 +43,7 @@ app.use(cors({
 }));
 app.use("/auth", authRouter);
 app.use("/msgs",loggedIn,  msgsRouter);
+app.use("/users",loggedIn,  usersRouter);
 // app.get("/login",(req,res)=>{
 //     res.sendFile(path.join(__dirname,"public","index.html"));
 // })

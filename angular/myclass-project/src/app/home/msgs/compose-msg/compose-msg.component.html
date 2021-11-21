@@ -1,0 +1,31 @@
+<div>
+
+    <div class="modal-body">
+        <div class="conatiner">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>שלח אל:</label>
+                        <select class="form-control" [(ngModel)]="Message.to_user_id">
+                            <option value="">שלח לכולם</option>
+                            <option [value]="user.id" *ngFor="let user of users">{{user.fullname}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 mt-2" *ngIf="Editor">
+                    <label>תוכן הודעה:</label>
+                   <ckeditor  
+                   [editor]="Editor"  
+                   [data]="Message.content"
+                   (change)="onChange($event)"
+                   [config]="editor_config"></ckeditor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="save()">שלח הודעה</button>
+        <button type="button" class="btn btn-secondary" (click)="close(null)">סגור</button>
+    </div>
+
+</div>

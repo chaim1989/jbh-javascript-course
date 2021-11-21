@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row mt-2">
         <div class="col-4 col-lg-3">
-            <!-- <a href="#" class="btn btn-danger btn-sm btn-block" role="button">הודעה חדשה</a>
-            <hr /> -->
+            <a class="btn btn-danger btn-sm w-100 mb-2" (click)="copmoseMsg()" role="button">הודעה חדשה</a>
+            <!-- <hr /> --> 
             <ul class="list-group p-0">
                 <li class="list-group-item" [ngClass]="current_tab=='inbox'?'active':''" (click)="current_tab='inbox'">
                     <a>
@@ -26,12 +26,13 @@
 
         <div class="col-8 col-lg-9">
             <ul class="list-group p-0">
-                <li class="list-group-item list-group-item-action" *ngFor="let msg of incoming_msgs">
+                <li class="list-group-item list-group-item-action" *ngFor="let msg of (current_tab=='sent'? outgoing_msgs : incoming_msgs)">
                     <input type="checkbox" class='float-end mx-2'>
                     <i class="float-end fa-star mx-2" [ngClass]="msg.favorited?'fas':'far'"
                         (click)="msg.favorited = !msg.favorited"></i>
                     <div class="h5 float-end">
-                        {{msg.sender_fullname}}
+                        {{(current_tab=='sent'?msg.receiver_fullname:msg.sender_fullname)}}
+                        
                     </div>
                     <div class="h6 float-end mx-2">{{getSubjectFromMsgContent(msg)}}</div>
       
